@@ -18,7 +18,6 @@ After cloning, run `npm install` and `git lfs install`.
 - Create a better API interface that works for both prettier-s0urce and bots
 - Move repo to @d0t3k1
 
-
 ### Git LFS
 
 If you're working with binary filetypes, like images, videos, excel files, files that are excessively large that you aren't planning on changing or other files that don't work well with version control, you should use Git LFS to track them. Do note that CSV files are plain text files and can work fine with git. One may however consider using Git LFS if the file is excessively large and doesn't need to be changed (git lfs still allows files to be changed).
