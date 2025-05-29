@@ -1,0 +1,30 @@
+{
+  "name": "s0urce-dti",
+  "version": "1.0.0",
+  "description": "All of d0t's statistics for items in s0urce.io, now in an easy-to-use library.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NanderTGA/s0urce-dTI.git"
+  },
+  "keywords": [
+    "s0urce",
+    "dTI",
+    "d0t",
+    "s0urceio"
+  ],
+  "author": "NanderTGA <65074195+NanderTGA@users.noreply.github.com> (https://nandertga.ddns.net/)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/NanderTGA/s0urce-dTI/issues"
+  },
+  "homepage": "https://github.com/NanderTGA/s0urce-dTI#readme",
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  }
+}
