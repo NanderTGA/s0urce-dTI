@@ -9,8 +9,9 @@ import dPS, { estimatePrice } from "./dPS.js";
 export enum ItemToDti {
     cpu = "dCI",
     gpu = "dGI",
-    firewall = "dFI",
     psu = "dPI",
+    firewall = "dFI",
+    router = "dFI"
 }
 
 export default function getItemGrade(item: Item, stringify?: true): string | undefined;
@@ -57,7 +58,7 @@ export default function getItemGrade(item: Item, stringify = true): string | { r
             hackCriticalDamageChance ?? 0,
             hackCriticalDamageBonus ?? 0,
         );
-    } else if (item.type === "firewall") {
+    } else if (item.type === "firewall" || item.type === "router") {
         rank = dFI(
             rarity,
             upgradeLevel,

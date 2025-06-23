@@ -50,9 +50,13 @@ export interface ItemStat {
     quality: string;
 }
 
-export type ItemTypes = "avatar" | "namePlate" | "nameColor" | "psu" | "ascii" | "cpu" | "gpu" | "firewall";
+export type ItemTypes = "avatar" | "namePlate" | "nameColor" | "psu" | "ascii" | "cpu" | "gpu" | "firewall" | "router";
 
-/** How a s0urce item is represented under the hood. This is what bots see. */
+/**
+ * How a s0urce item is represented under the hood.
+ * This is what bots see.
+ * The only difference is that here you can use router instead of firewall as the item type too.
+ */
 export interface Item<ItemType extends ItemTypes = ItemTypes> {
     id: string;
     name: string;
