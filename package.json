@@ -1,6 +1,6 @@
 {
   "name": "s0urce-dti",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "All of d0t's statistics for items in s0urce.io, now in an easy-to-use library.",
   "type": "module",
   "main": "./dist/index.js",
