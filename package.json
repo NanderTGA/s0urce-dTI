@@ -5,6 +5,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
+    "install": "git lfs install",
     "build": "rimraf dist && npx tsc"
   },
   "repository": {

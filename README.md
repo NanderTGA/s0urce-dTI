@@ -4,7 +4,7 @@ All of d0t's statistics for items in s0urce.io, now in an easy-to-use library.
 
 ## Contributing
 
-After cloning, run `npm install` and `git lfs install`.
+After cloning, run `npm install`.
 
 ### TODO
 
