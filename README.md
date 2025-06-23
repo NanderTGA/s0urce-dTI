@@ -35,4 +35,4 @@ NOTE: If you run these commands only after a relevant file is already checked in
 This library is licensed under the GNU General Public License Version 3 (GPLv3). This means that closed-source bots can use it too since their code isn't distributed.
 
 The code in this library was derived from the dTI code in prettier-s0urce, developed by Xen0o2 and d0t (see [Xen0o2's version](github.com/Xen0o2/prettier-s0urce) and [d0t's version](https://github.com/d0t3k1/d0t-s0urce-prettier)).
-The API interface was derived from the dTI implementation in NanderTGA's Yabluzo, which was also derived from prettier-s0urce.
+The API interface was derived from Yabluzo's dTI implementation, which was also derived from prettier-s0urce.
