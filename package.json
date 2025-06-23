@@ -4,6 +4,7 @@
   "description": "All of d0t's statistics for items in s0urce.io, now in an easy-to-use library.",
   "type": "module",
   "main": "./dist/index.js",
+  "packageManager": "pnpm@10.12.1",
   "scripts": {
     "install": "git lfs install",
     "build": "rimraf dist && npx tsc"

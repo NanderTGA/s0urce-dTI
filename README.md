@@ -4,7 +4,10 @@ All of d0t's statistics for items in s0urce.io, now in an easy-to-use library.
 
 ## Contributing
 
-After cloning, run `npm install`.
+After cloning, run `pnpm install`.
+[Pnpm](https://pnpm.io) is a more efficient package manager for Node.js.
+If you don't have it installed already, try running `corepack install` first.
+If that doesn't, work, follow [the installation instructions on their website](https://pnpm.io/installation) and restart your IDE.
 
 ### TODO
 
