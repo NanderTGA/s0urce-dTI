@@ -1,10 +1,12 @@
-import { RankFunctionReturn, Rarities, Item, RaritiesLettersReverse } from "./stats.js";
+import statistics, { Rarities, Item, RaritiesLettersReverse } from "./stats.js";
+import packageJSON from "../package.json" with { type: "json" }
+const { version } = packageJSON;
 
 import dCI from "./dCI.js";
 import dFI from "./dFI.js";
 import dGI from "./dGI.js";
 import dPI from "./dPI.js";
-import dPS, { estimatePrice } from "./dPS.js";
+import dPS, { DPSPriceEstimationInfo, estimatePrice } from "./dPS.js";
 
 export enum ItemToDti {
     cpu = "dCI",
@@ -14,19 +16,26 @@ export enum ItemToDti {
     router = "dFI"
 }
 
-export default function getItemGrade(item: Item, stringify?: true): string | undefined;
-export default function getItemGrade(item: Item, stringify: false): { rank: RankFunctionReturn, dTIName: string, estimatedPrice: number } | undefined;
-export default function getItemGrade(item: Item, stringify = true): string | { rank: RankFunctionReturn, dTIName: string, estimatedPrice: number } | undefined {
+export interface ItemGradeInfo {
+    rank: number;
+    version: string;
+    dTIName: string;
+    estimatedPrice: DPSPriceEstimationInfo;
+}
+
+export default function getItemGrade(item: Item, stringify?: true, dPMFlag?: boolean): string | undefined;
+export default function getItemGrade(item: Item, stringify: false, dPMFlag?: boolean): ItemGradeInfo | undefined;
+export default function getItemGrade(item: Item, stringify = true, dPMFlag = false): string | ItemGradeInfo | undefined {
     if (!item.stats) return undefined;
 
     const rarity = Rarities[RaritiesLettersReverse[item.rarity]];
-    const upgradeLevel = item.upgradeLevel ?? 1;
+    const level = item.upgradeLevel ?? 1;
     const statsArrays = Object.groupBy(item.stats, stat => stat.key);
-    const stats = Object.create(null) as Partial<Record<string, number>>;
+    const itemStats = Object.create(null) as Partial<Record<string, number>>;
     for (const stat in statsArrays) {
         const statInfo = statsArrays[stat];
         if (!statInfo) continue;
-        stats[stat] = statInfo[0].value;
+        itemStats[stat] = statInfo[0].value;
     }
 
     const {
@@ -44,15 +53,15 @@ export default function getItemGrade(item: Item, stringify = true): string | { r
         moreCryptoReward,
         betterBarter,
         cryptoMiningPower,
-    } = stats;
+    } = itemStats;
 
-    let rank: RankFunctionReturn | undefined;
+    let rank: number | undefined;
 
     if (item.type === "cpu") {
         rank = dCI(
             rarity,
-            upgradeLevel,
-            hackDamage ?? 0,
+            !dPMFlag ? level : 1,
+            !dPMFlag ? (hackDamage ?? 0) : (hackDamage ?? 0) - statistics.cpuTerm[rarity] * (level - 1),
             hackTrueDamage ?? 0,
             hackArmorPenetration ?? 0,
             hackCriticalDamageChance ?? 0,
@@ -61,8 +70,8 @@ export default function getItemGrade(item: Item, stringify = true): string | { r
     } else if (item.type === "firewall" || item.type === "router") {
         rank = dFI(
             rarity,
-            upgradeLevel,
-            firewallHealth ?? 0,
+            !dPMFlag ? level : 1,
+            !dPMFlag ? (firewallHealth ?? 0) : (firewallHealth ?? 0) - statistics.fireTerm[rarity] * (level - 1),
             firewallDamageReduction ?? 0,
             firewallRegeneration ?? 0,
             firewallAdvancedEncryption ?? 0,
@@ -71,7 +80,7 @@ export default function getItemGrade(item: Item, stringify = true): string | { r
     } else if (item.type === "gpu") {
         rank = dGI(
             rarity,
-            upgradeLevel,
+            level,
             idleCryptoMining ?? 0,
             moreCryptoReward ?? 0,
             betterBarter ?? 0,
@@ -79,19 +88,19 @@ export default function getItemGrade(item: Item, stringify = true): string | { r
     } else if (item.type === "psu") {
         rank = dPI(
             rarity,
-            upgradeLevel,
-            cryptoMiningPower ?? 0,
+            !dPMFlag ? level : 1,
+            !dPMFlag ? (cryptoMiningPower ?? 0) : (cryptoMiningPower ?? 0) - statistics.psuTerm[rarity] * (level - 1),
         );
     } else {
         return undefined;
     }
 
     const dTIName = ItemToDti[item.type];
-    const estimatedPrice = (stringify ? dPS : estimatePrice)(rank.rating, upgradeLevel, rarity, item.type);
-    rank.rating = Number(rank.rating.toFixed(4));
+    const estimatedPrice = (stringify ? dPS : estimatePrice)(rank, level, rarity, item.type);
+    rank = Number(rank.toFixed(4));
 
-    if (!stringify) return { rank, dTIName, estimatedPrice: estimatedPrice as number };
+    if (!stringify) return { rank, version, dTIName, estimatedPrice: estimatedPrice as DPSPriceEstimationInfo };
 
     // 5.6842/10.0000 dCI (~69 BTC) v1.6.2
-    return `${rank.rating}/10.0000 ${dTIName} (${estimatedPrice}) v${rank.version}`;
+    return `${rank}/10.0000 ${dTIName} (${estimatedPrice}) v${version}`;
 }

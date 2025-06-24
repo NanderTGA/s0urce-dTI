@@ -1,6 +1,4 @@
-import stats, { RankFunctionReturn, Rarities } from "./stats.js";
-
-export const DPI_VERSION = "1.6.2";
+import stats, { Rarities } from "./stats.js";
 
 export function boostBtcPerHour(boost: number, rarity: Rarities): number {
     let idle = stats.gpu[rarity].idle[1] + stats.gpuTerm[rarity];
@@ -25,7 +23,7 @@ export default function dPI(
     rarity: Rarities,
     level: number,
     cryptoMiningPower: number,
-): RankFunctionReturn {
+): number {
     const rating = rank(cryptoMiningPower, level, rarity);
-    return { rating, version: DPI_VERSION };
+    return rating
 }

@@ -1,7 +1,5 @@
+import stats, { Rarities } from "./stats.js";
 import { hackPower } from "./dCI.js";
-import stats, { RankFunctionReturn, Rarities } from "./stats.js";
-
-export const DFI_VERSION = "1.6.2";
 
 export function firewallEncryption(hp: number, rd: number, regeneration: number, medium: number, long: number): [ number, number, number, number ] {
     rd /= 100;
@@ -11,7 +9,7 @@ export function firewallEncryption(hp: number, rd: number, regeneration: number,
     return [
         1000 + hp * 3,
         rd * 3,
-        regeneration * 3 * .3,
+        regeneration * 3 * 0.3,
         (shortComplexity[0] * shortComplexity[1] + mediumComplexity[0] * mediumComplexity[1] + longComplexity[0] * longComplexity[1]) / (shortComplexity[1] + mediumComplexity[1] + longComplexity[1]),
     ];
 }
@@ -35,9 +33,9 @@ export function rank(hp: number, rd: number, rg: number, enc: number, level: num
     const cpsAverage = 5;
     const bestPort = firewallEncryption(item.hp[1] + stats.fireTerm[rarity] * (level - 1), item.rd[1], item.rg[1], item.medium[1], item.long[1]);
     const worstPort = firewallEncryption(item.hp[0] + stats.fireTerm[rarity] * (level - 1), item.rd[0], item.rg[0], item.medium[0], item.long[0]);
-    const bestHoldout = penTest(bestPort, cpuV, bestPort[3] / cpsAverage + .3);
-    const worstHoldout = penTest(worstPort, cpuV, worstPort[3] / cpsAverage + .3);
-    const actualHoldout = penTest([ hp, rd, rg ], cpuV, enc / cpsAverage + .3);
+    const bestHoldout = penTest(bestPort, cpuV, bestPort[3] / cpsAverage + 0.3);
+    const worstHoldout = penTest(worstPort, cpuV, worstPort[3] / cpsAverage + 0.3);
+    const actualHoldout = penTest([ hp, rd, rg ], cpuV, enc / cpsAverage + 0.3);
     const qualityRange = worstHoldout - bestHoldout;
     const qualityActually = worstHoldout - actualHoldout;
     const fireRank = 1 + (qualityActually / qualityRange * 9);
@@ -53,8 +51,8 @@ export default function dFI(
     regeneration: number,
     advancedEncryption: number,
     masterEncryption: number,
-): RankFunctionReturn {
+): number {
     const [ hp, rd, rg, encryption ] = firewallEncryption(health, damageReduction, regeneration, advancedEncryption, masterEncryption);
     const rating = rank(hp, rd, rg, encryption, level, rarity);
-    return { rating, version: DFI_VERSION };
+    return rating;
 }

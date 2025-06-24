@@ -1,6 +1,4 @@
-import stats, { RankFunctionReturn, Rarities } from "./stats.js";
-
-export const DCI_VERSION = "1.6.2";
+import stats, { Rarities } from "./stats.js";
 
 // eslint-disable-next-line jsdoc/require-param
 /**
@@ -11,13 +9,20 @@ export function hackPower(hack: number, trueDmg: number, pen: number, chance: nu
     chance /= 100;
     dam /= 100;
     return [
-        (100 + hack) + (.05 + chance) * (100 + hack) * (.3 + dam),
+        (100 + hack) + (0.05 + chance) * (100 + hack) * (0.3 + dam),
         pen,
         trueDmg,
     ];
 }
 
-export function rank(raw: number, pen: number, trueDam: number, level: number, rarity: number): number {
+export function averageDamage(hack: number, trueDmg: number, pen: number, chance: number, dam: number): number {
+    pen /= 100;
+    chance /= 100;
+    dam /= 100;
+    return ((100 + hack) + (0.05 + chance) * (100 + hack) * (0.3 + dam)) * (1 + pen) + trueDmg;
+}
+
+export function rank(raw: number, pen: number, trueDam: number, level: number, rarity: Rarities): number {
     const item = stats.cpu[rarity];
     const port = stats.port[rarity];
     const bestHackPower = hackPower(item.hack[1] + stats.cpuTerm[rarity] * (level - 1), item.trueDam[1], item.pen[1], item.chance[1], item.dam[1]);
@@ -40,8 +45,8 @@ export default function dCI(
     armorPenetration: number,
     criticalChance: number,
     criticalDamage: number,
-): RankFunctionReturn {
+): number {
     const [ raw, pen, trueDmg ] = hackPower(hackDamage, trueDamage, armorPenetration, criticalChance, criticalDamage);
     const rating = rank(raw, pen, trueDmg, level, rarity);
-    return { rating, version: DCI_VERSION };
+    return rating;
 }

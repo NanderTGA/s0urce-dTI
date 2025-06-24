@@ -1,6 +1,4 @@
-import stats, { RankFunctionReturn, Rarities } from "./stats.js";
-
-export const DGI_VERSION = "1.6.2";
+import stats, { Rarities } from "./stats.js";
 
 export function netBtcPerHour(idle: number, barter: number, crypto: number): number {
     const npcsPerHour = 27.69;
@@ -33,7 +31,7 @@ export default function dGI(
     idleCryptoMining: number,
     moreCryptoReward: number,
     betterBarter: number,
-): RankFunctionReturn {
+): number {
     const rating = rank(idleCryptoMining, betterBarter, moreCryptoReward, level, rarity);
-    return { rating, version: DGI_VERSION };
+    return rating;
 }

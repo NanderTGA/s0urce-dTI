@@ -11,12 +11,11 @@ If that doesn't, work, follow [the installation instructions on their website](h
 
 ### TODO
 
-- Fix version inconsistent dTI numbers across the code
-  - Include version from package.json everywhere
-  - Change version number to 2.0.0
-- Update the copied over code from Yabluzo to the newest dTI version
-- Test if everything actually works
+- Refactor dCPS and dPS code
+- Include new dCPS in getItemGrade()
+- Test if everything actually works (setup vitest?)
 - Publish to NPM
+  - Set a proper list of exported files in package.json
   - Setup github actions workflow for that
 - Create a better API interface that works for both prettier-s0urce and bots
 - Move repo to @d0t3k1
