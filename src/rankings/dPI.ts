@@ -1,4 +1,5 @@
-import stats, { Rarities } from "./stats.js";
+import stats from "../stats.js";
+import { Rarities } from "../types.js";
 
 export function boostBtcPerHour(boost: number, rarity: Rarities): number {
     let idle = stats.gpu[rarity].idle[1] + stats.gpuTerm[rarity];

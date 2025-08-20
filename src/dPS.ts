@@ -1,4 +1,5 @@
-import stats, { Rarities, ItemTypes } from "./stats.js";
+import stats from "./stats.js";
+import { Rarities, ItemTypes } from "./types.js";
 
 export function estimatePrice(dPM: number, level: number, rarity: Rarities, type: ItemTypes): string {
     const basePrice = stats.filamentPrice[rarity];

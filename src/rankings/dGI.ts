@@ -1,4 +1,5 @@
-import stats, { Rarities } from "./stats.js";
+import stats from "../stats.js";
+import { Rarities } from "../types.js";
 
 export function netBtcPerHour(idle: number, barter: number, crypto: number): number {
     const npcsPerHour = 27.69;

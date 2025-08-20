@@ -1,4 +1,6 @@
-import stats, { Rarities } from "./stats.js";
+import stats from "../stats.js";
+import { Rarities } from "../types.js";
+
 import { hackPower } from "./dCI.js";
 
 export function firewallEncryption(hp: number, rd: number, regeneration: number, medium: number, long: number): [ number, number, number, number ] {

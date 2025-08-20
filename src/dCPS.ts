@@ -1,4 +1,5 @@
-import stats, { Rarities } from "./stats.js";
+import stats from "./stats.js";
+import { Rarities } from "./types.js";
 
 export function estimatePrice(type: string, rarity: Rarities, mint: number, premium: boolean): string {
     let value = stats.filamentPrice[rarity];

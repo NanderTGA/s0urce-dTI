@@ -1,4 +1,5 @@
-import stats, { ItemTypes, Rarities } from "./stats.js";
+import stats from "./stats.js";
+import { ItemTypes, Rarities } from "./types.js";
 
 export function percentile(query: number, distribution: number[]): number {
     let p = 100;
