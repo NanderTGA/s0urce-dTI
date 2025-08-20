@@ -89,14 +89,13 @@ export enum ItemToDti {
 }
 
 export interface ItemRankInfo {
-    rank: number;
+    rating: number;
     name: string;
 }
 
 export interface ItemGradeInfo {
-    rank?: number;
+    rank?: ItemRankInfo;
     version: string;
-    dTIName?: string;
     percentile?: number;
     estimatedPrice: DPSPriceEstimationInfo;
 }
