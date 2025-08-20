@@ -13,6 +13,7 @@ If that doesn't, work, follow [the installation instructions on their website](h
 
 - Refactor dCPS code
 - Include new dCPS in getItemGrade()
+- add option to stringify specific parts
 - Test if everything actually works (setup vitest?)
 - Publish to NPM
   - Set a proper list of exported files in package.json
